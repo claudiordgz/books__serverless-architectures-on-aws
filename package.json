@@ -1,0 +1,25 @@
+{
+  "name": "transcode-video",
+  "version": "0.0.1",
+  "description": "Transcode Video Function",
+  "main": "handler.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/claudiordgz/books__serverless-architectures-on-aws.git"
+  },
+  "author": "claudiordgz <claudio.rdgz@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/claudiordgz/books__serverless-architectures-on-aws/issues"
+  },
+  "homepage": "https://github.com/claudiordgz/books__serverless-architectures-on-aws#readme",
+  "devDependencies": {
+    "aws-sdk": "^2.130.0",
+    "jest": "^21.2.1",
+    "run-local-lambda": "^1.1.1",
+    "serverless-external-s3-event": "^1.0.9"
+  }
+}

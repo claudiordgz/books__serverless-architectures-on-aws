@@ -1,0 +1,46 @@
+package:
+  individually: true
+  exclude:
+    - ./**
+
+plugins:
+ - serverless-external-s3-event
+
+service: transcode-video
+
+provider:
+  name: aws
+  runtime: nodejs6.10
+  region: us-east-1
+  iamRoleStatements:
+    -  Effect: "Allow"
+       Action:
+         - "s3:PutBucketNotification"
+       Resource:
+         Fn::Join:
+           - ""
+           - "arn:aws:s3:::serverless-video-upload-cbrr"
+
+functions:
+  TranscodeVideo:
+    handler: transcode-video/handler.TranscodeVideo
+    role: arn:aws:iam::358485744732:role/lambda-s3-execution-role
+    package:
+      include:
+        - transcode-video/handler.js
+        - transcode-video/serverless.yml
+    events:
+      - existingS3:
+          bucket: serverless-video-upload-cbrr
+          event: s3:ObjectCreated:*
+    memorySize: 128
+    timeout: 15
+  SetPermissions:
+    handler: set-permissions/handler.SetPermissions
+    role: arn:aws:iam::358485744732:role/lambda-s3-execution-role
+    package:
+      include:
+        - set-permissions/handler.js
+        - set-permissions/serverless.yml
+    memorySize: 128
+    timeout: 15
